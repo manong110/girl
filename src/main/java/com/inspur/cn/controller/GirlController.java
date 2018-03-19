@@ -1,14 +1,22 @@
 package com.inspur.cn.controller;
 
+import com.inspur.cn.common.util.ResultUtil;
 import com.inspur.cn.repo.Girl;
+import com.inspur.cn.repo.Result;
 import com.inspur.cn.repository.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 public class GirlController {
+
+    private final static Logger logger = LoggerFactory.getLogger(GirlController.class);
 
     @Autowired
     private Repository repository;
@@ -28,10 +36,16 @@ public class GirlController {
      * @return
      */
     @PostMapping(value= "/girls")
-    public Girl addGirl(Girl girl){
+    public Result addGirl(@Valid Girl girl, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            String msg =bindingResult.getFieldError().getDefaultMessage();
+            logger.error("msg->{}",msg);
+            return ResultUtil.error(msg);
+        }
         girl.setCupSize(girl.getCupSize());
+        girl.setId(girl.getId());
         girl.setAge(girl.getAge());
-        return repository.save(girl);
+        return ResultUtil.success(repository.save(girl));
     }
 
     /**
@@ -42,14 +56,20 @@ public class GirlController {
      * @return
      */
     @PutMapping(value = "/girls/{id}")
-    public Girl uppGirl(@PathVariable("id")Integer id,
-                        @RequestParam("age")Integer age,
-                        @RequestParam("cupSize")String cupSize){
+    public Result uppGirl(@PathVariable("id")Integer id,
+                          @RequestParam("age")Integer age,
+                          @RequestParam("cupSize")String cupSize,
+                          BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            String msg = bindingResult.getFieldError().getDefaultMessage();
+            logger.error("msg->{}",msg);
+            return ResultUtil.error(msg);
+        }
         Girl girl = new Girl();
         girl.setId(id);
         girl.setAge(age);
         girl.setCupSize(cupSize);
-        return repository.save(girl);
+        return ResultUtil.success(repository.save(girl));
     }
 
     /**
@@ -58,8 +78,8 @@ public class GirlController {
      * @return
      */
     @GetMapping(value = "/girl/{id}")
-    public Girl getGirl(@PathVariable("id")Integer id){
-        return repository.findOne(id);
+    public Result getGirl(@PathVariable("id")Integer id){
+        return ResultUtil.success(repository.findOne(id));
     }
 
     /**
@@ -67,9 +87,9 @@ public class GirlController {
      * @param id
      */
     @DeleteMapping(value = "/girl/{id}")
-    public void delGirl(@PathVariable("id")Integer id){
+    public Result delGirl(@PathVariable("id")Integer id){
         repository.delete(id);
-        return;
+        return ResultUtil.success();
     }
 
 
