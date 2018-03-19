@@ -2,11 +2,14 @@ spring:
   profiles:
     active: dev
 
-age: 18
-cupSize: C
 
-content: "age:${age},cupSize:${cupSize}"
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dbgirl
+    username: root
+    password: root
 
-girl:
-  age: 16
-  cupSize: F
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
