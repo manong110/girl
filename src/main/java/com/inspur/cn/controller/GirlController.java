@@ -4,6 +4,7 @@ import com.inspur.cn.common.util.ResultUtil;
 import com.inspur.cn.repo.Girl;
 import com.inspur.cn.repo.Result;
 import com.inspur.cn.repository.Repository;
+import com.inspur.cn.service.GirlService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class GirlController {
 
     @Autowired
     private Repository repository;
+
+    @Autowired
+    private GirlService girlService;
 
     /**
      * 获取所有女生信息
@@ -40,7 +44,7 @@ public class GirlController {
         if(bindingResult.hasErrors()){
             String msg =bindingResult.getFieldError().getDefaultMessage();
             logger.error("msg->{}",msg);
-            return ResultUtil.error(msg);
+            return ResultUtil.error(1,msg);
         }
         girl.setCupSize(girl.getCupSize());
         girl.setId(girl.getId());
@@ -62,8 +66,9 @@ public class GirlController {
                           BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             String msg = bindingResult.getFieldError().getDefaultMessage();
+            System.out.println(bindingResult.getFieldError().getCode());
             logger.error("msg->{}",msg);
-            return ResultUtil.error(msg);
+            return ResultUtil.error(1,msg);
         }
         Girl girl = new Girl();
         girl.setId(id);
@@ -92,5 +97,13 @@ public class GirlController {
         return ResultUtil.success();
     }
 
+    @GetMapping(value="/girl/age/{age}")
+    public List<Girl> getGirlByAge(@PathVariable Integer age){
+        return repository.findByAge(age);
+    }
 
+    @GetMapping(value = "/girl/id/{id}")
+    public void getGirlAge(@PathVariable Integer id) throws Exception {
+        girlService.getGirlAge(id);
+    }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @Aspect
 @Component
@@ -46,22 +45,6 @@ public class HttpAspect {
     @AfterReturning(returning = "object",pointcut = "log()")
     public void doReturning(Object object){
         logger.info("response->{}",object.toString());
-    }
-
-    @Around("log()")
-    public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-        Object ob = null;
-        long startTime = 0;
-        try {
-            startTime = System.currentTimeMillis();
-            ob = pjp.proceed();// ob 为方法的返回值
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            logger.info("耗时(ms): {}" ,System.currentTimeMillis() - startTime);
-        }
-        logger.debug("返回值类型 : {}" ,ob);
-        return ob;
     }
 
 }
