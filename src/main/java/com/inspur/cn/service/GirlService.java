@@ -13,6 +13,12 @@ public class GirlService {
     @Autowired
     private Repository repository;
 
+    public Girl getGirl(Integer id){
+        Girl girl = repository.findOne(id);
+        return  girl;
+    }
+
+
     public void getGirlAge(Integer id) throws Exception{
         Girl girl = repository.findOne(id);
         Integer age = girl.getAge();

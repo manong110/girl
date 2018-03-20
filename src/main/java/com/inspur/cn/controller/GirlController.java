@@ -84,7 +84,7 @@ public class GirlController {
      */
     @GetMapping(value = "/girl/{id}")
     public Result getGirl(@PathVariable("id")Integer id){
-        return ResultUtil.success(repository.findOne(id));
+        return ResultUtil.success(girlService.getGirl(id));
     }
 
     /**
