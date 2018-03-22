@@ -1,12 +1,15 @@
 package com.inspur.cn.controller;
 
 import com.inspur.cn.properties.GirlProperties;
+import com.inspur.cn.repo.Demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 @RestController
 public class BaseController {
@@ -44,4 +47,10 @@ public class BaseController {
         return girlProperties.getCupSize()+girlProperties.getAge();
     }
 
+    @GetMapping(value="/demo")
+    public Demo getDemo(){
+        Demo demo = new Demo();
+        demo.setCreatTime(new Date());
+        return demo;
+    }
 }

@@ -8,8 +8,20 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dbgirl
     username: root
     password: root
+    tomcat:
+      max-active: 20
+      max-idle: 8
+      min-idle: 8
+      initial-size: 10
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    database: mysql
+
+
+  freemarker:
+    cache: false
+  thymeleaf:
+    cache: false
