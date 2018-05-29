@@ -1,9 +1,7 @@
 package com.inspur.cn.repo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
@@ -11,10 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity
-@ToString
 public class Demo {
 
     @Id

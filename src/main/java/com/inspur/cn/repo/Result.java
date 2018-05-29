@@ -1,12 +1,8 @@
 package com.inspur.cn.repo;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-@NoArgsConstructor
+@Data
 public class Result<T> {
 
     private Integer code;

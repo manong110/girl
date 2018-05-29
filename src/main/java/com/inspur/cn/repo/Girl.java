@@ -1,9 +1,6 @@
 package com.inspur.cn.repo;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
@@ -13,10 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Setter
-@Getter
-@ToString
-@NoArgsConstructor
+@Data
 public class Girl {
 
     @Id
