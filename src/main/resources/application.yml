@@ -8,11 +8,13 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dbgirl
     username: root
     password: root
+    type: com.alibaba.druid.pool.DruidDataSource
     tomcat:
       max-active: 20
       max-idle: 8
       min-idle: 8
       initial-size: 10
+      max-wait: 60000
 
   jpa:
     hibernate:
@@ -20,8 +22,10 @@ spring:
     show-sql: true
     database: mysql
 
-
   freemarker:
     cache: false
   thymeleaf:
     cache: false
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.inspur.cn.repo
